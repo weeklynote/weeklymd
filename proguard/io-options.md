@@ -5,7 +5,7 @@
 ```
 -include filename
 ```
-###[filename usage](http://)
+###[filename usage](https://github.com/weeklynote/weeklymd/blob/master/proguard/file-names.md)
 递归的从指定文件读取配置信息。
 比如：**java -jar proguard.jar @myconfig.pro**
 等价于**java -jar proguard.jar -include myconfig.pro**
@@ -17,18 +17,18 @@
 ```
 -injars class_path
 ```
-###[class_path usage](http://)
-指定需要处理的jars(wars/ears/zips/directories)，jars中的文件将会被处理并且被写到output jars。默认情况下，非类文件会直接复制并且不会修改里面的内容。请尤其注意临时文件，尤其是你正在通过目录读取文件。在**[class_path](http://)**中的内容可以过滤，可以参考**[filters](http://)**。为了更好的可读性，建议使用多个**-injars**来指定多个**class_path**。
+###[class_path usage](https://github.com/weeklynote/weeklymd/blob/master/proguard/class-paths.md)
+指定需要处理的jars(wars/ears/zips/directories)，jars中的文件将会被处理并且被写到output jars。默认情况下，非类文件会直接复制并且不会修改里面的内容。请尤其注意临时文件，尤其是你正在通过目录读取文件。在**[class_path](https://github.com/weeklynote/weeklymd/blob/master/proguard/class-paths.md)**中的内容可以过滤，可以参考**[filters](https://github.com/weeklynote/weeklymd/blob/master/proguard/filters.md)**。为了更好的可读性，建议使用多个**-injars**来指定多个**class_path**。
 ```
 -outjars class_path
 ```
-###[class_path usage](http://)
-指定输出jars(wars/ears/zips/directories)的名字，前面输入的**-injars**选项将会被写入指定的jars中。这样就可以将输入jars的信息收集到相应的输出jars中。另外可以过滤输出内容，可以参考**[filters](http://)**。每个处理过的类文件或资源文件会被写到第一个匹配的filter中。你还需要避免输出文件覆盖输入文件。为了更好的可读性，建议使用多个**-outjars**。没有**-outjars**配置时，不会有输出文件。
+###[class_path usage](https://github.com/weeklynote/weeklymd/blob/master/proguard/class-paths.md)
+指定输出jars(wars/ears/zips/directories)的名字，前面输入的**-injars**选项将会被写入指定的jars中。这样就可以将输入jars的信息收集到相应的输出jars中。另外可以过滤输出内容，可以参考**[filters](https://github.com/weeklynote/weeklymd/blob/master/proguard/filters.md)**。每个处理过的类文件或资源文件会被写到第一个匹配的filter中。你还需要避免输出文件覆盖输入文件。为了更好的可读性，建议使用多个**-outjars**。没有**-outjars**配置时，不会有输出文件。
 ```
 -libraryjars class_path
 ```
-###[class_path usage](http://)
-指定相关必需的 jar(wars/ears/zips/directories)类库。这些文件不会包含在输出的文件中。在这些类库中至少要包含在应用中已使用到的类。类库中的文件如果仅仅是被调用将不会被保留，即使这些文件会起到优化作用。在**[class_path](http://)**中的内容可以过滤，可以参考**[filters](http://)**。为了更好的可读性，建议使用多个**-libraryjars**来指定多个**class_path**。
+###[class_path usage](https://github.com/weeklynote/weeklymd/blob/master/proguard/class-paths.md)
+指定相关必需的 jar(wars/ears/zips/directories)类库。这些文件不会包含在输出的文件中。在这些类库中至少要包含在应用中已使用到的类。类库中的文件如果仅仅是被调用将不会被保留，即使这些文件会起到优化作用。在**[class_path](https://github.com/weeklynote/weeklymd/blob/master/proguard/class-paths.md)**中的内容可以过滤，可以参考**[filters](http://)**。为了更好的可读性，建议使用多个**-libraryjars**来指定多个**class_path**。
 请注意启动路径与执行Proguard的类路径并没有包括在内，这意味着你需要显示的指明运行时jar，这样可以允许用户自己定义不同的运行环境。
 ```
 -skipnonpubliclibraryclasses

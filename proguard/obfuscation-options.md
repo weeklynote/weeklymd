@@ -7,28 +7,28 @@
 ```
 -printmapping [filename]
 ```
-###[filename usage](http://)
+###[filename usage](https://github.com/weeklynote/weeklymd/blob/master/proguard/file-names.md)
 指定打印出被更改过名字的类和类成员的旧名和新名之间的映射。映射被打印到标准输出流或指定的文件中。**该选项只在混淆时适用**。
 
 ```
 -applymapping filename
 ```
-###[filename usage](http://)
+###[filename usage](https://github.com/weeklynote/weeklymd/blob/master/proguard/file-names.md)
 指定重用以前的混淆后的产生的映射文件，即类和类成员会接收映射文件列出的名字而不是新的名字。映射对输入的类文件和库文件同样适用。这个选项在使用增量混淆时很有用，比如：处理插件或小补丁到现有的代码中。在这样的情况下，你需要考虑是否使用**-useuniqueclassmembernames**选项。**只能接收一个映射文件，并且该选项只在混淆时适用**。
 ```
 -obfuscationdictionary filename
 ```
-###[filename usage](http://)
+###[filename usage](https://github.com/weeklynote/weeklymd/blob/master/proguard/file-names.md)
 指定一个文本文件并且使用文本文件里面的有效字符作为混淆后属性和方法的名字。默认情况下，混淆后的名字就像a、b子类的。对于一个混淆字典，你可以指定一系列的保留关键字、外国字符，比如：空格、标点符号、重复的单词，#后面的注释会被忽略。**请注意混淆字典几乎不会提高混淆的质量**，稍微专业一点的编译器就可以自动的替换它们，其结果就是导致混淆撤销，然后重新进行混淆。最有用的应用场景是指定在类文件中已经存在字符作为字典，这样可以适当减小输出文件大小，**并且该选项只在混淆时适用**。
 ```
 -classobfuscationdictionary filename
 ```
-###[filename usage](http://)
+###[filename usage](https://github.com/weeklynote/weeklymd/blob/master/proguard/file-names.md)
 同**-obfuscationdictionary**，只是这个选项是用来混淆类名。**该选项只在混淆时适用**。
 ```
 -packageobfuscationdictionary filename
 ```
-###[filename usage](http://)
+###[filename usage](https://github.com/weeklynote/weeklymd/blob/master/proguard/file-names.md)
 同**-obfuscationdictionary**，只是这个选项是用来混淆包名。**该选项只在混淆时适用**。
 ```
 -overloadaggressively
@@ -88,12 +88,12 @@
 ```
 -adaptresourcefilenames [file_filter]
 ```
-###[file_filter usage](http://)
+###[file_filter usage](https://github.com/weeklynote/weeklymd/blob/master/proguard/file-filters.md)
 指定在混淆过的相应的类文件的基础上对资源文件重命名。没有使用过滤器参数,所有对应于类文件的资源文件将被重命名。使用了过滤器,只有匹配文件被重命名。**主要适用于混淆时**。
 ```
 -adaptresourcefilecontents [file_filter]
 ```
-###[file_filter usage](http://)
+###[file_filter usage](https://github.com/weeklynote/weeklymd/blob/master/proguard/file-filters.md)
 指定了资源文件的内容将被更新。资源文件中提到的任何类的名字会在混淆的基础上重新命名。使用过滤器参数,所有资源文件的内容会被更新。使用了过滤器参数,只有匹配的文件被更新。资源文件的解析和书写使用平台的默认字符集。你可以改变这种默认字符集通过设置环境变量LANG或者Java系统属性file.encoding。**主要适用于混淆时**。
 
 

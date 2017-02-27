@@ -3,17 +3,17 @@
 ```
 -dontusemixedcaseclassnames
 ```
-###[Obfuscation Options](http://)
+###[Obfuscation Options](https://github.com/weeklynote/weeklymd/blob/master/proguard/obfuscation-options.md)
 指定混淆时不使用大小写混用的类名。
 ```
 -dontskipnonpubliclibraryclasses
 ```
-###[Input/Output Options](http://)
+###[Input/Output Options](https://github.com/weeklynote/weeklymd/blob/master/proguard/io-options.md)
 不跳过非public类。
 ```
 -verbose
 ```
-###[General Options](http://)
+###[General Options](https://github.com/weeklynote/weeklymd/blob/master/proguard/general-options.md)
 混淆过程中输出更多的信息。
 ```
 -dontoptimize
@@ -39,7 +39,7 @@
     native <methods>;
 }
 ```
-###[Keep Options](http://)
+###[Keep Options](https://github.com/weeklynote/weeklymd/blob/master/proguard/keep-options.md)
 保留native方法，理解这个写法时请注意查看**Keep Options**的最后总结部分，以及**Keep**命令的组成部分。
 ```
 -keepclassmembers public class * extends android.view.View {
@@ -94,7 +94,7 @@ gradle文件内的defaultConfig内的consumerProguardFiles属性，它指定了�
 > -obfuscationdictionary dictionary.txt
 > -classobfuscationdictionary filename
 > -packageobfuscationdictionary filename
-> 这三个属性可以在混淆的时候使名字变成自己指定的特殊字符串，但是这样存在风险，请参考[Obfuscation Options](http://)。
+> 这三个属性可以在混淆的时候使名字变成自己指定的特殊字符串，但是这样存在风险，请参考[Obfuscation Options](https://github.com/weeklynote/weeklymd/blob/master/proguard/obfuscation-options.md)。
 - 每次打包保留mapping文件，方便后续排查问题。
 - 每次混淆之后，反编译查看是否可以进一步优化，以减小apk大小。
 - 好好理解keep相关指令，足以解决平常的大多数问题，请熟悉其语法结构及代表的意思。

@@ -19,7 +19,7 @@ ProGuard是一个压缩、优化、混淆Java字节码的开源工具，它可�
 最后我们需要知道，ProGuard不会混淆native代码、drawable、xml。
 
 ## 开启Android混淆
-```
+```gradle
 buildTypes {
         release {
             minifyEnabled true

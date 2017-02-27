@@ -22,10 +22,10 @@
 ```
 -printconfiguration [filename]
 ```
-###[filename usage](http://)
+###[filename usage](https://github.com/weeklynote/weeklymd/blob/master/proguard/file-names.md)
 指定输出已经解析过的整个配置信息到标准输出流或给定文件中。通常用来调试配置信息或将xml配置转化为可读性更好的格式。
 ```
 -dump [filename]
 ```
-###[filename usage](http://)
+###[filename usage](https://github.com/weeklynote/weeklymd/blob/master/proguard/file-names.md)
 指定在任何处理之后输出指定类文件的内部结构到标准输出流或给定的文件中。
