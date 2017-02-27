@@ -14,7 +14,7 @@ ProGuard是一个压缩、优化、混淆Java字节码的开源工具，它可�
 - 在压缩阶段，ProGuard会递归遍历上述的Entry Points，查询出哪些类和成员在使用，并且移除未被使用的类和成员。
 - 在优化阶段，ProGuard进一步优化代码，不在Entry Points中的类和方法会被设置为private、static或final，未使用的参数会被移除，一些方法会被内联。
 - 在混淆阶段，不在Entry Points中的类和成员变量会被重命名，这个过程会确保Entry Points中的类和方法 可以使用以前的名字被访问，即Entry Points中的类和方法不会被混淆，名字保持原来一致。
-- 在预检验中是唯一一步不需要关心Entry Points。
+- 在预检验中不需要关心Entry Points。
 
 最后我们需要知道，ProGuard不会混淆native代码、drawable、xml。
 
@@ -31,8 +31,8 @@ buildTypes {
 强烈建议设置zipAlignEnabled为true，zipAlign可以让安装包中的资源按4字节对齐，这样可以减少应用在运行时的内存消耗。
 
 ## 准备工作
-- Jadx
-详情请查看开源项目**[jadx](https://github.com/skylot/jadx)**，该工具可以不使用任何命令行直接将apk或jar文件直接反编译并以较可读性高的方式查看源代码，强烈推荐。
+- Jadx  
+详情请查看开源项目**[jadx](https://github.com/skylot/jadx)**，该工具可以不使用任何命令行直接将apk或jar文件反编译并以较高可读性的方式查看源代码，**强烈推荐**。
 - 强烈推荐查看SDK目录下android-sdk-windows\tools\proguard下的混淆文件，根据里面的示例进一步理解每个命令的含义。
 
 # Usage
