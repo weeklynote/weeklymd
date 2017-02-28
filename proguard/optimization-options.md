@@ -6,7 +6,7 @@
 ```
 -optimizations optimization_filter
 ```
-**[Optimization Filter Usage](https://github.com/weeklynote/weeklymd/blob/master/proguard/optimizations.md)**
+**[Optimization Filter Usage](https://github.com/weeklynote/weeklymd/blob/master/proguard/optimizations.md)**  
 指定以更细粒度水平的条件下决定是否开启优化，**该选项只在优化阶段适用**，这是一个专家级的选项。
 ```
 -optimizationpasses n
@@ -15,7 +15,7 @@
 ```
 -assumenosideeffects class_specification
 ```
-**请查看[Class Specification Usage](https://github.com/weeklynote/weeklymd/blob/master/proguard/keep-options.md)中的Class Specification节**。
+**请查看[Class Specification Usage](https://github.com/weeklynote/weeklymd/blob/master/proguard/keep-options.md)中的Class Specification节**。  
 指定方法没有任何副作用(除非存在返回值)。优化阶段，如果方法的返回值未被使用，ProGuard将会删除这种方法的调用。注意ProGuard是自动分析程序代码找到这样的方法，**ProGuard将不会分析库代码**。比如：你可以指定System.currentTimeMillis()，因此那些满足条件的调用将会被移除。注意，ProGuard会在将整个方法的层级上应用这个选项。**该选项只在优化阶段适用**。总的来说，assumptions是危险的；你可以很容易的打断处理代码。**如果你很确定这样不会影响代码，你才可以这么做**。
 ```
 -allowaccessmodification
