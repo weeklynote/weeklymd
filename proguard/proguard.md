@@ -36,6 +36,7 @@ buildTypes {
 - 强烈推荐查看SDK目录下android-sdk-windows\tools\proguard下的混淆文件，根据里面的示例进一步理解每个命令的含义。
 
 # Usage
+**强烈建议查看一下Keep Options指令，阅读时请注意其后文的总结部分**。
 - ## [General Options](https://github.com/weeklynote/weeklymd/blob/master/proguard/general-options.md)
 - ## [Input/Output Options](https://github.com/weeklynote/weeklymd/blob/master/proguard/io-options.md)
 - ## [Keep Options](https://github.com/weeklynote/weeklymd/blob/master/proguard/keep-options.md)
