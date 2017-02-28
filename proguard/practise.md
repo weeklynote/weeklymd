@@ -18,12 +18,12 @@
 ```
 -dontoptimize
 ```
-###[Optimization Options](http://)
+###[Optimization Options](https://github.com/weeklynote/weeklymd/blob/master/proguard/optimization-options.md)
 不进行优化处理。
 ```
 -dontpreverify
 ```
-###[Preverification Options](http://)
+###[Preverification Options](https://github.com/weeklynote/weeklymd/blob/master/proguard/preverification-options.md)
 不进行预校验。
 ```
 -keepattributes *Annotation*
