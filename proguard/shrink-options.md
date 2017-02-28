@@ -11,5 +11,5 @@
 ```
 -whyareyoukeeping class_specification
 ```
-请查看**[Class Specification Usage](https://github.com/weeklynote/weeklymd/blob/master/proguard/keep-options.md)**中Class Specifications节。
+**请查看[Class Specification Usage](https://github.com/weeklynote/weeklymd/blob/master/proguard/keep-options.md)中Class Specifications节。**
 指定输出给定类和类成员在压缩阶段被保留的原因。如果你想知道为什么一些元素被保留在输出文件，这个选项将很有用。总体上说，保留的原因有很多。这个选项打印最短的方法链对应类和类成员所指定的Entry Point。在现有的实现机制下，打印出的最短方法链有时会包含间接的删除信息-这并不影响压缩流程。如果你指定了**-verbose**选项，打印轨迹将包含域和方法签名。**该选项只在压缩阶段适用**。

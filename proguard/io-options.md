@@ -12,7 +12,7 @@
 ```
 -basedirectory directoryname
 ```
-###[directoryname usage](http://)
+###[directoryname usage](https://github.com/weeklynote/weeklymd/blob/master/proguard/file-names.md)
 指定当前配置文件中相对路径的基础目录。
 ```
 -injars class_path
@@ -28,7 +28,7 @@
 -libraryjars class_path
 ```
 ###[class_path usage](https://github.com/weeklynote/weeklymd/blob/master/proguard/class-paths.md)
-指定相关必需的 jar(wars/ears/zips/directories)类库。这些文件不会包含在输出的文件中。在这些类库中至少要包含在应用中已使用到的类。类库中的文件如果仅仅是被调用将不会被保留，即使这些文件会起到优化作用。在**[class_path](https://github.com/weeklynote/weeklymd/blob/master/proguard/class-paths.md)**中的内容可以过滤，可以参考**[filters](http://)**。为了更好的可读性，建议使用多个**-libraryjars**来指定多个**class_path**。
+指定相关必需的 jar(wars/ears/zips/directories)类库。这些文件不会包含在输出的文件中。在这些类库中至少要包含在应用中已使用到的类。类库中的文件如果仅仅是被调用将不会被保留，即使这些文件会起到优化作用。在**[class_path](https://github.com/weeklynote/weeklymd/blob/master/proguard/class-paths.md)**中的内容可以过滤，可以参考**[filters](https://github.com/weeklynote/weeklymd/blob/master/proguard/filters.md)**。为了更好的可读性，建议使用多个**-libraryjars**来指定多个**class_path**。
 请注意启动路径与执行Proguard的类路径并没有包括在内，这意味着你需要显示的指明运行时jar，这样可以允许用户自己定义不同的运行环境。
 ```
 -skipnonpubliclibraryclasses
@@ -45,7 +45,7 @@
 ```
 -keepdirectories [directory_filter]
 ```
-###[directory_filter usage](http://)
+###[directory_filter usage](https://github.com/weeklynote/weeklymd/blob/master/proguard/file-filters.md)
 指定要保留的输出jars目录。默认情况下，目录会被移除。这会减少输出文件的大小，但如果你的代码使用如下代码片段时可能会导致程序不符合预期。
 例如：MyCalss.class.getResource("")
 如果没有指定过滤器，所有目录会被保留。使用了过滤器则只会保留匹配的目录。

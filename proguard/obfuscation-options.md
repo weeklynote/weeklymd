@@ -53,24 +53,22 @@
 ```
 -keeppackagenames [package_filter]
 ```
-###[package_filter usage](http://)
+###[package_filter usage](https://github.com/weeklynote/weeklymd/blob/master/proguard/filters.md)
 指定不混淆给定的包名。**package_filter**是使用逗号分隔的包名列表，包名可以包含？、\*、\*\*通配符，也可以在包名前使用!(取反)。**这个选项只在混淆时适用**。
 ```
 -flattenpackagehierarchy [package_name]
 ```
-###[package_name usage](http://)
 指定将重命名过的包重新打包，将其移动到一个给定的父包目录中。无参数或使用一个空字符串，所有的包都会被移动到根包目录下，这个选项是对混淆包名的进一步混淆。可以使处理过得代码更小和更容易理解。**这个选项只在混淆时适用**。
 ```
 -repackageclasses [package_name]
 ```
-###[package_name usage](http://)
 指定对重命名过的类文件进行重命名，将其移动到一个指定的包中。无参数或使用一个空字符串，包将会被彻底删除。
 这个选项会覆盖**-flattenpackagehierarchy**，这个选项是对混淆包名的进一步混淆。可以使处理过得代码更小和更容易理解。这个选项有一个不建议使用的名字**-defaultpackage**，**这个选项只在混淆时适用**。
 重要警告：如果类通过包目录查找资源文件将不能正常的工作，因为已经被移动到其他位置去了。**如果不能确定使用这个选项是否会存在问题时，建议不要使用这个选项**。
 ```
 -keepattributes [attribute_filter]
 ```
-###[attribute_filter usage](http://)
+###[attribute_filter usage](https://github.com/weeklynote/weeklymd/blob/master/proguard/filters.md)
 指定保留指定的属性。这些属性可以通过一个或多个**-keepattributes**指令指定。**attribute_filter**使用逗号分隔多个属性名。属性名可以包含？、\*、\**通配符，并且可以使用！(非)操作符。典型的可选属性包括Signature、Deprecated、SourceFile、SourceDir、LineNumberTable、 LocalVariableTable、LocalVariableTypeTable、Synthetic、EnclosingMethod、RuntimeVisibleAnnotations、 RuntimeInvisibleAnnotations、RuntimeVisibleParameterAnnotations、RuntimeInvisibleParameterAnnotations、AnnotationDefault 。内部类的属性名也可以指定，指向属性的源文件名称。比如：你在处理库时至少需要保留Exceptions、InnerClasses、Signature属性。你可以保留SourceFile和LineNumberTable属性来产生有用的混淆堆栈信息。最后，你可能需要保留代码需要的注解。**这个选项只在混淆时适用**。
 ```
 -keepparameternames
@@ -83,7 +81,7 @@
 ```
 -adaptclassstrings [class_filter]
 ```
-###[class_filter usage](http://)
+###[class_filter usage](https://github.com/weeklynote/weeklymd/blob/master/proguard/filters.md)
 指定字符串常量(对应于类名)应该被混淆。不使用过滤器,所有对应于类名的字符串常量都会被修改。使用过滤器,只在匹配类里面的字符串常量才会被修改。例如,如果您的代码包含大量的硬编码的字符串指向一个类,你最好不要保留它们名字,你可能需要使用这个选项。**主要适用于混淆时,尽管相应类已经在压缩阶段自动压缩了**。
 ```
 -adaptresourcefilenames [file_filter]
@@ -95,130 +93,3 @@
 ```
 ###[file_filter usage](https://github.com/weeklynote/weeklymd/blob/master/proguard/file-filters.md)
 指定了资源文件的内容将被更新。资源文件中提到的任何类的名字会在混淆的基础上重新命名。使用过滤器参数,所有资源文件的内容会被更新。使用了过滤器参数,只有匹配的文件被更新。资源文件的解析和书写使用平台的默认字符集。你可以改变这种默认字符集通过设置环境变量LANG或者Java系统属性file.encoding。**主要适用于混淆时**。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
