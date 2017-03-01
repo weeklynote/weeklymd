@@ -10,7 +10,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
+import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
@@ -88,26 +92,40 @@ public class MainActivity extends AppCompatActivity implements XRecyclerViewAdap
     }
 
     private void applyScaleAnimation(){
-        ScaleAnimation scaleAnimation = new ScaleAnimation(0.1f, 1, 0.2f, 1.0f);
+        ScaleAnimation scaleAnimation = new ScaleAnimation(0.1f, 1, 0.2f, 1.0f, Animation.RELATIVE_TO_SELF, 0.8f, Animation.RELATIVE_TO_SELF, 0.9f);
         scaleAnimation.setDuration(4000);
-        mAnimatedView.startAnimation(scaleAnimation);
+        mAnimatedView.startAnimation(AnimationUtils.loadAnimation(this, R.anim.scale));
     }
 
     private void applyAlphaAnimation(){
-
+        AlphaAnimation alphaAnimation = new AlphaAnimation(0, 1);
+        alphaAnimation.setDuration(4000);
+        mAnimatedView.startAnimation(AnimationUtils.loadAnimation(this, R.anim.alpha));
     }
 
     private void applyRotateAnimation(){
-
+        RotateAnimation rotateAnimation = new RotateAnimation(45, 270, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        rotateAnimation.setDuration(4000);
+        mAnimatedView.startAnimation(AnimationUtils.loadAnimation(this, R.anim.rotate));
     }
 
     private void applyAnimationSet(){
-
+        AnimationSet animationSet = new AnimationSet(true);
+        RotateAnimation rotateAnimation = new RotateAnimation(90, -90, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        rotateAnimation.setDuration(600);
+        rotateAnimation.setRepeatMode(Animation.REVERSE);
+        rotateAnimation.setRepeatCount(5);
+        rotateAnimation.setStartTime(1200);
+        animationSet.addAnimation(rotateAnimation);
+        ScaleAnimation scaleAnimation = new ScaleAnimation(0.2f, 1.2f, 0.2f, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        scaleAnimation.setDuration(300);
+        animationSet.addAnimation(scaleAnimation);
+        mAnimatedView.startAnimation(animationSet);
     }
 
     @Override
-    public void onItemClicked(int positon) {
-        switch (positon){
+    public void onItemClicked(int position) {
+        switch (position){
             case 0:
                 applyTranslateAnimation();
                 break;
