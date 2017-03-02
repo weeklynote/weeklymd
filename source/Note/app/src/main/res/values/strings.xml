@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">WeeklyNote</string>
     <string name="action_settings">Settings</string>
+    <string name="view_animation">APP/Animation/ViewAnimation</string>
+    <string name="property_animation">APP/Animation/PropertyAnimation</string>
+    <string name="animation_cloning">APP/Animation/AnimationCloning</string>
 </resources>
