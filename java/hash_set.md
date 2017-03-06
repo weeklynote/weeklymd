@@ -21,17 +21,20 @@ public boolean add(E e) {
         return map.put(e, PRESENT)==null;
 }
 ```
-通过**HashMap**的内部原理可以知道，其put方法会在新添加元素至**HashMap**时；或者如果新添加的值产生了hash冲突，并且在**Node**链中找不到与key对应的值时才会返回null。所以我们得知在这两种情况下，**HashSet才算把元素添加成功**！
+通过**HashMap**的内部原理可知------**[HashMap代码分析](https://github.com/weeklynote/weeklymd/blob/master/java/hashmap.md)**，其put方法会在新添加元素至**HashMap**时；或者如果新添加的值产生了hash冲突，并且在**Node**链中找不到与key对应的值时才会返回null。所以我们得知在这两种情况下，**HashSet才算把元素添加成功**！
 ## remove值
 ```gradle
 public boolean remove(Object o) {
         return map.remove(o)==PRESENT;
 }
 ```
-通过**HashMap**的内部原理可以知道，当待删除的对象被成功删除后会返回一个非null的**Node**。而我们存储的是同一个**PRESENT**对象，所以可以使用等于符号判断是否是删除成功。
+通过**HashMap**的内部原理可知------**[HashMap代码分析](https://github.com/weeklynote/weeklymd/blob/master/java/hashmap.md)**，当待删除的对象被成功删除后会返回一个非null的**Node**。而我们存储的是同一个**PRESENT**对象，所以可以使用等于符号判断是否是删除成功。
 ## iterator遍历
 ```gradle
 public Iterator<E> iterator() {
         return map.keySet().iterator();
 }
 ```
+通过**HashMap**的内部原理可知------**[HashMap代码分析](https://github.com/weeklynote/weeklymd/blob/master/java/hashmap.md)**，**HashSet**此时可以创建一个可以遍历的**Iterator**对象。该对象遍历**HashMap**的key值，而**HashSet中的值就是存储在HashMap中的key中**，因此此时可以获取到**HashSet中的值**。
+## 性能问题
+由于**HashSet**中使用**HashMap**存储，所以其性能受制于**HashMap**------**[HashMap代码分析](https://github.com/weeklynote/weeklymd/blob/master/java/hashmap.md)**
