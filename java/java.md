@@ -4,7 +4,7 @@
 - ##[equals()、hashCode()方法](http://)
 - ##[Java中常用集合类](http://)
 	- #[HashMap](https://github.com/weeklynote/weeklymd/blob/master/java/hashmap.md)
-	- #[HashTable](http://)
+	- #[HashTable](https://github.com/weeklynote/weeklymd/blob/master/java/hash_table.md)
 	- #[HashSet](http://)
 	- #[TreeSet](http://)
 	- #[ArrayList](http://)
