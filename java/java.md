@@ -6,7 +6,7 @@
 	- #[HashMap](https://github.com/weeklynote/weeklymd/blob/master/java/hashmap.md)
 	- #[HashTable](https://github.com/weeklynote/weeklymd/blob/master/java/hash_table.md)
 	- #[HashSet](https://github.com/weeklynote/weeklymd/blob/master/java/hash_set.md)
-	- #[TreeSet](http://)
+	- #[TreeSet](https://github.com/weeklynote/weeklymd/blob/master/java/tree_set.md)
 	- #[ArrayList](http://)
 	- #[LinkedList](http://)
 	- #[ArrayList](http://)
