@@ -5,7 +5,7 @@
 - ##[Java中常用集合类](http://)
 	- #[HashMap](https://github.com/weeklynote/weeklymd/blob/master/java/hashmap.md)
 	- #[HashTable](https://github.com/weeklynote/weeklymd/blob/master/java/hash_table.md)
-	- #[HashSet](http://)
+	- #[HashSet](https://github.com/weeklynote/weeklymd/blob/master/java/hash_set.md)
 	- #[TreeSet](http://)
 	- #[ArrayList](http://)
 	- #[LinkedList](http://)
