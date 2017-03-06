@@ -146,6 +146,63 @@ Entry(int h, K k, V v, Entry<K,V> n) {
 }
 ```
 可以看到在hash冲突的情况下，新添加的Entry对象的next会指向旧的Entry对象。至此可以想象一下HashMap保存的真正数据结构类型，即数组链表结构。
+## remove
+```gradle
+public V remove(Object key) {
+        Node<K,V> e;
+        // 注意第四个参数为false
+        return (e = removeNode(hash(key), key, null, false, true)) == null ?
+            null : e.value;
+}
+```
+继续调用removeNode方法
+```gradle
+final Node<K,V> removeNode(int hash, Object key, Object value, boolean matchValue, boolean movable) {
+        Node<K,V>[] tab; Node<K,V> p; int n, index;
+        if ((tab = table) != null && (n = tab.length) > 0 &&
+            (p = tab[index = (n - 1) & hash]) != null) {
+            Node<K,V> node = null, e; K k; V v;
+            if (p.hash == hash && ((k = p.key) == key || (key != null && key.equals(k))))
+                node = p;
+            else if ((e = p.next) != null) {
+                if (p instanceof TreeNode)
+                    node = ((TreeNode<K,V>)p).getTreeNode(hash, key);
+                else {
+                    do {
+                        if (e.hash == hash &&
+                            ((k = e.key) == key ||
+                             (key != null && key.equals(k)))) {
+                            node = e;
+                            break;
+                        }
+                        p = e;
+                    } while ((e = e.next) != null);
+                }
+            }
+            if (node != null && (!matchValue || (v = node.value) == value || (value != null && value.equals(v)))) {
+                if (node instanceof TreeNode)
+                    ((TreeNode<K,V>)node).removeTreeNode(this, tab, movable);
+                else if (node == p)
+                    tab[index] = node.next;
+                else
+                    p.next = node.next;
+                ++modCount;
+                --size;
+                afterNodeRemoval(node);
+                return node;
+            }
+        }
+        return null;
+    }
+```
+首先获取hash对应的table索引，判断索引位置处**Node**是否为null。  
+**如果不为null，执行下面两种情况**
+> 1.满足**Node**的key与要删除的key一致，那么表明此时的**HashMap**并没有产生hash冲突，此时的**Node**的next指向null，所以将table索引位置处的值指向**Node**的next就实现了删除功能。
+> **************
+> 2.继续遍历**Node**链表，看是否有满足key条件的**Node**，如果有，此时将查找到的**Node**的上一个**Node**的next指向查找到的**Node**的下一个**Node**(比较绕，请看p.next = node.next;)。
+> *****
+上述两种情况都属于删除成功，会将**Node**返回。其他情况都是返回null代表删除失败。
+
 ## get
 ```gradle
 public V get(Object key) {
@@ -190,6 +247,70 @@ final Entry<K,V> getEntry(Object key) {
 - 如果**HashMap**中table数组索引处是一个长度为1的Entry链表，如果找到相同的key，那么将其返回；否则返回null。
 - -如果**HashMap**中table数组索引处是一个长度大于1的Entry链表，即产生了hash冲突。那么将遍历这个完整的链表，如果找到相同的key，则返回其value；否则返回null。
 - 其他情况都返回null
+
+## iterator遍历
+```gradle
+public Set<K> keySet() {
+        Set<K> ks;
+        return (ks = keySet) == null ? (keySet = new KeySet()) : ks;
+}
+```
+初次遍历的时候，keySet为空；第二次遍历时不为空。
+```gradle
+final class KeySet extends AbstractSet<K> {
+	......
+	public final Iterator<K> iterator(){ 
+    	return new KeyIterator(); 
+    }
+    ......
+}
+```
+```gradle
+final class KeyIterator extends HashIterator implements Iterator<K> {
+    public final K next() { return nextNode().key; }
+}
+```
+注意HashIterator的hasNext方法。
+```gradle
+HashIterator() {
+            expectedModCount = modCount;
+            Node<K,V>[] t = table;
+            current = next = null;
+            index = 0;
+            if (t != null && size > 0) { // advance to first entry
+                do {} while (index < t.length && (next = t[index++]) == null);
+            }
+}
+```
+这里的超类HashIterator构造方法很有趣，最后的循环会查找到第一个不为null的**Node**的索引，用于起始遍历，请牢记这一点。
+```gradle
+public final boolean hasNext() {
+            return next != null;
+}
+```
+我们使用**Iterator**遍历**HashMap**时，会首先判断是否满足遍历条件。对于满足遍历条件，需要得到下一个节点。
+```gradle
+public final K next() { return nextNode().key; }
+```
+```gradle
+final Node<K,V> nextNode() {
+            Node<K,V>[] t;
+            Node<K,V> e = next;
+            if (modCount != expectedModCount)
+                throw new ConcurrentModificationException();
+            if (e == null)
+                throw new NoSuchElementException();
+            if ((next = (current = e).next) == null && (t = table) != null) {
+                do {} while (index < t.length && (next = t[index++]) == null);
+            }
+            return e;
+}
+```
+这里需要弄明白一个问题就是如何保证返回的**Node**不为null。
+> 1.调用next方法之前，建议使用hasNext方法先判断一下是否满足遍历条件。
+> 2.使用局部变量e指向next节点(当前遍历到的节点)，判断next节点的下一个节点是否为null。如果为null，则代表**Node**链表已经遍历完毕，需要使用while循环查找到table数组中下一个不为null的**Node**。反之，如果不为null，此时将继续遍历**Node**链表。
+
+至此，遍历部分讲解完毕。
 
 ## 性能问题
 初始化容量和加载因子，这两个参数影响**HashMap**性能的重要参数。初始化容量是**HashMap**刚刚创建时table数组的长度，加载因子是当容量自动增加到某种界限时，需要对table进行resize操作。也就是说初始化容量和加载因子共同决定了在什么样的情况下进行扩容。
