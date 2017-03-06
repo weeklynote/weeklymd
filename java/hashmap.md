@@ -1,6 +1,6 @@
 ## HashMap
 **HashMap**大致与HashTable等价，除了其未使用**synchronized**和允许null的key或value，**HashMap**不保证元素的顺序。  
-**HashMap**提供put与get方法操作元素，元素被散列的分布。如果遍历的性能很重要，需要注意初始化的容量和加载因子两个参数，他们会影响性能，至于原因请看下文。
+**HashMap**提供put与get方法操作元素，元素被散列的分布。需要注意初始化的容量和加载因子两个参数，他们会影响性能，至于原因请看下文。
 同时需要注意到**HashMap**并未使用**synchronized**关键字，所以并发操作是不安全的。  
 如果在**iterators**创建之后，Map的结构被修改了(包括增加、删除操作，不包含内容修改操作)，**iterators**将抛出**ConcurrentModificationException**。
 ## 创建HashMap
