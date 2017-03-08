@@ -89,4 +89,12 @@ Comparator<? super K> cpr = comparator;
             } while (t != null);
         ...
 ```
-do...while循环至少会执行一次，循环的作用是从root(根节点)开始，如果compare方法比较的结果小于0，那么将从根节点的左边再次开始遍历查找；如果compare方法比较的结果大于0，；那么将从根节点的右边开始遍历查找；如果compare方法比较的结果等于0，那么将使用新值替换旧值。**请注意循环结束的条件是向root的左或右查找直到left或right为null，请结合下图进行理解这个遍历过程**。
+do...while循环至少会执行一次，初次会将**t**赋值为root。
+> 1.将parent也指向t;
+> 2.将key值与t.key进行compare方法比较
+> 3.如果compare方法比较的结果小于0，那么将**t**重新赋值为t.left，然后再次执行1；
+> 4.如果compare方法比较的结果大于0，；那么将**t**重新赋值为t.right，然后再次执行1；
+> 5.如果compare方法比较的结果等于0，那么将使用新值替换旧值，循环结束；
+ 
+**请注意循环结束的条件是向root的左或右查找直到left或right为null，请结合下图进行理解这个遍历过程**。
+<img src="https://github.com/weeklynote/weeklymd/blob/master/images/red_black_tree.jpg?raw=true" alt="screenshot" title="screenshot" />
