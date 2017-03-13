@@ -97,7 +97,7 @@ do...while循环至少会执行一次，初次会将**t**赋值为root。
 > 5.如果compare方法比较的结果等于0，那么将使用新值替换旧值，循环结束；
  
 **请注意循环结束的条件是向root的左或右查找直到left或right为null，请结合下图进行理解这个遍历过程，节点中left与right如果为null未被标记出来**。
-<img src="https://github.com/weeklynote/weeklymd/blob/master/images/red_black_tree.jpg?raw=true" alt="screenshot" title="screenshot" />
+<img src="https://github.com/weeklynote/weeklymd/blob/master/images/red_black_tree.png?raw=true" alt="screenshot" title="screenshot" />
 **上图的数据结构中，每一个节点的结构如下图所示：**
 <img src="https://github.com/weeklynote/weeklymd/blob/master/images/tree_map_entry.png?raw=true" alt="screenshot" title="screenshot" />
 **请在结合以上两图进行理解**TreeMap**的数据结构**。
