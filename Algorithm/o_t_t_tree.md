@@ -14,3 +14,7 @@
 **A B C**为元素节点，子节点**M**小于**A**，子节点**N**介于**A B**之间，子节点**P**介于**B C**之间，子节点**Q**大于**C**。  
 <img src="https://github.com/weeklynote/weeklymd/blob/master/images/4_tree_struct.png?raw=true" alt="screenshot" title="screenshot" />
 ## 2-3-4树的插入
+- 1.如果当前节点是4-节点
+  - 移除并保存节点中间的元素值，然后生成一个3-节点
+  - 将该3-节点分裂成两个2-节点
+  - 如果当前节点是根节点，被保存的中间值作为新的根节点
