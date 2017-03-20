@@ -6,7 +6,7 @@
 ``` gradle
 SortedSet s = Collections.synchronizedSortedSet(new TreeMap(...))。
 ```
-参考**[红-黑二叉树结构](https://github.com/weeklynote/weeklymd/blob/master/Algorithm/red_black_tree.md)**  
+更多细节请参考**[红-黑二叉树结构](https://github.com/weeklynote/weeklymd/blob/master/Algorithm/red_black_tree.md)**  
 ## 创建TreeMap对象  
 ```gradle
 // 单独的比较器(Comparator)，如果比较的对象实现了Comparable接口可以不设置这个参数
@@ -21,7 +21,7 @@ public TreeMap(Comparator<? super K> comparator) {
 }
 ```
 
-## put键值对
+## 添加键值对
 ``` gradle
 public V put(K key, V value) {
         Entry<K,V> t = root;
@@ -157,7 +157,7 @@ private void fixAfterInsertion(Entry<K,V> x) {
     }
 ```
 首先我们需要明确在节点插入之前，**红黑树**也是平衡的。从着色的方法来看，每个节点插入时默认的颜色为红色，尽管Entry的构造默认颜色为黑色。其他添加的情况具体可以查看**[红黑树的插入部分内容](https://github.com/weeklynote/weeklymd/blob/master/Algorithm/red_black_tree.md######插入)**。  
-## get键值对
+## 获取键值对
 ``` gradle
 public V get(Object key) {
         Entry<K,V> p = getEntry(key);
