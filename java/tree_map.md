@@ -155,7 +155,7 @@ private void fixAfterInsertion(Entry<K,V> x) {
         root.color = BLACK;
     }
 ```
-首先我们需要明确在节点插入之前，**红黑树**也是平衡的。从着色的方法来看，每个节点插入时默认的颜色为红色，尽管Entry的构造默认颜色为黑色。其他添加的情况具体可以查看**[红黑树的插入](https://github.com/weeklynote/weeklymd/blob/master/Algorithm/red_black_tree.md######插入)**。
+首先我们需要明确在节点插入之前，**红黑树**也是平衡的。从着色的方法来看，每个节点插入时默认的颜色为红色，尽管Entry的构造默认颜色为黑色。其他添加的情况具体可以查看**[红黑树的插入部分内容](https://github.com/weeklynote/weeklymd/blob/master/Algorithm/red_black_tree.md######插入)**。  
 ## get键值对
 ``` gradle
 public V get(Object key) {
@@ -183,11 +183,11 @@ final Entry<K,V> getEntry(Object key) {
         return null;
 }
 ```
-##### 1:首先查看**Comparable**的情况，将root(根节点)赋值给p。
-> 将对象进行compareTo方法比较，值为cmp  
-> 如果cmp小于0，那么将p赋值为p.left，继续遍历  
-> 如果cmp大于0，那么将p赋值为p.right，继续遍历  
-> 如果cmp等于0，说明已找到满足key条件的节点，遍历结束  
+以**Comparable**的情况为例，将root(根节点)赋值给p，即从根节点开始判断遍历的方向。  
+> 将对象进行compareTo方法比较，值为cmp；  
+> 如果cmp小于0，那么将p赋值为p.left，从节点的左边开始查找，继续遍历；  
+> 如果cmp大于0，那么将p赋值为p.right，从节点的右边开始查找，继续遍历；  
+> 如果cmp等于0，说明已找到满足key条件的节点，遍历结束；  
 
 上述过程与**put**键值对时的查找算法一致，下面来看看**Comparator**的实现方式。  
 ``` gradle
@@ -210,7 +210,7 @@ final Entry<K,V> getEntryUsingComparator(Object key) {
 }
 ```
 可以看到代码与**Comparable**实现非常类似，只是比较方式从**compareTo**变成了**compare**，不在累述。  
-## remove键值对
+## 删除键值对
 ``` gradle
 public V remove(Object key) {
         Entry<K,V> p = getEntry(key);
@@ -267,5 +267,8 @@ private void deleteEntry(Entry<K,V> p) {
         }
 }
 ```
-上述的代码分析更多详情可以参考**[红黑树的原理分析](http://)**。  
-
+上述的代码分析更多详情可以参考**[红黑树的原理分析](https://github.com/weeklynote/weeklymd/blob/master/Algorithm/red_black_tree.md)**。
+## 遍历
+**请参考[红黑树的原理分析](https://github.com/weeklynote/weeklymd/blob/master/Algorithm/red_black_tree.md)**。
+## 其他
+其他操作相对比较简单，不再累述。
