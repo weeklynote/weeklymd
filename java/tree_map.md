@@ -1,11 +1,12 @@
 ## TreeMap
-**TreeMap**基于**NavigableMap**接口的**[红-黑二叉树结构](https://github.com/weeklynote/weeklymd/blob/master/Algorithm/red_black_tree.md)**。元素按照**Comparable**自然排序或按照提供的**Comparator**进行**排序**，使用时可以选择不同的构造方法来达到上述排序要求。  
+**TreeMap**基于**NavigableMap**接口，元素按照**Comparable**自然排序或按照提供的**Comparator**进行**排序**，使用时可以选择不同的构造方法来达到上述排序要求。  
 **TreeMap**提供时间复杂度为**log(n)**的基本操作(containsXXX、get、put、remove)。  
 **请注意方法实现不是同步的，因此多线程操作时需要自己单独做同步处理**  
 或者  
 ``` gradle
 SortedSet s = Collections.synchronizedSortedSet(new TreeMap(...))。
 ```
+参考**[红-黑二叉树结构](https://github.com/weeklynote/weeklymd/blob/master/Algorithm/red_black_tree.md)**  
 ## 创建TreeMap对象  
 ```gradle
 // 单独的比较器(Comparator)，如果比较的对象实现了Comparable接口可以不设置这个参数
