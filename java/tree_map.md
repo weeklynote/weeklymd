@@ -7,15 +7,15 @@
 SortedSet s = Collections.synchronizedSortedSet(new TreeMap(...))。
 ```
 ## 创建TreeMap对象  
-`` gradle
+```gradle
 // 单独的比较器(Comparator)，如果比较的对象实现了Comparable接口可以不设置这个参数
 private final Comparator<? super K> comparator;
 // 红-黑二叉树的根节点
 private transient Entry<K,V> root;
 ```
-``` gradle
+```gradle
 public TreeMap(Comparator<? super K> comparator) {
-		// 请注意是按照key的规则排序
+        // 请注意是按照key的规则排序
         this.comparator = comparator;
 }
 ```
@@ -112,7 +112,50 @@ Entry<K,V> e = new Entry<>(key, value, parent);
         modCount++;
         return null;
 ```
-cmp的值与上一步的查找节点中的compare值一致，至此节点就被插入到对应的位置处。**Comparable的实现方式与Comparator类似，略**。
+cmp的值与上一步的查找节点中的compare值一致，至此节点就被插入到对应的位置处。**Comparable的实现方式与Comparator类似，略**。  
+插入节点之后需要判断是否会导致红黑树失去平衡，即通过父节点的颜色来进行判断。  
+```gradle
+private void fixAfterInsertion(Entry<K,V> x) {
+        x.color = RED;
+        while (x != null && x != root && x.parent.color == RED) {
+            if (parentOf(x) == leftOf(parentOf(parentOf(x)))) {
+                Entry<K,V> y = rightOf(parentOf(parentOf(x)));
+                if (colorOf(y) == RED) {
+                    setColor(parentOf(x), BLACK);
+                    setColor(y, BLACK);
+                    setColor(parentOf(parentOf(x)), RED);
+                    x = parentOf(parentOf(x));
+                } else {
+                    if (x == rightOf(parentOf(x))) {
+                        x = parentOf(x);
+                        rotateLeft(x);
+                    }
+                    setColor(parentOf(x), BLACK);
+                    setColor(parentOf(parentOf(x)), RED);
+                    rotateRight(parentOf(parentOf(x)));
+                }
+            } else {
+                Entry<K,V> y = leftOf(parentOf(parentOf(x)));
+                if (colorOf(y) == RED) {
+                    setColor(parentOf(x), BLACK);
+                    setColor(y, BLACK);
+                    setColor(parentOf(parentOf(x)), RED);
+                    x = parentOf(parentOf(x));
+                } else {
+                    if (x == leftOf(parentOf(x))) {
+                        x = parentOf(x);
+                        rotateRight(x);
+                    }
+                    setColor(parentOf(x), BLACK);
+                    setColor(parentOf(parentOf(x)), RED);
+                    rotateLeft(parentOf(parentOf(x)));
+                }
+            }
+        }
+        root.color = BLACK;
+    }
+```
+首先我们需要明确在节点插入之前，**红黑树**也是平衡的。从着色的方法来看，每个节点插入时默认的颜色为红色，尽管Entry的构造默认颜色为黑色。其他添加的情况具体可以查看**[红黑树的插入](https://github.com/weeklynote/weeklymd/blob/master/Algorithm/red_black_tree.md######插入)**。
 ## get键值对
 ``` gradle
 public V get(Object key) {
@@ -190,11 +233,10 @@ private void deleteEntry(Entry<K,V> p) {
             p.value = s.value;
             p = s;
         }
-        // Start fixup at replacement node, if it exists.
+        // 这里需要注意待删除节点存在两个子节点的处理情况
         Entry<K,V> replacement = (p.left != null ? p.left : p.right);
-
         if (replacement != null) {
-            // Link replacement to parent
+            // 将替换节点的父节点指向待删除节点的父节点，为后面的删除做准备
             replacement.parent = p.parent;
             if (p.parent == null)
                 root = replacement;
@@ -202,19 +244,19 @@ private void deleteEntry(Entry<K,V> p) {
                 p.parent.left  = replacement;
             else
                 p.parent.right = replacement;
-
-            // Null out links so they are OK to use by fixAfterDeletion.
+            // 这里执行的是替换删除，而不是直接删除，将引用置空达到删除效果
             p.left = p.right = p.parent = null;
 
-            // Fix replacement
+            // 删除节点为黑色很明显会破坏平衡，因此需要重新着色
             if (p.color == BLACK)
                 fixAfterDeletion(replacement);
-        } else if (p.parent == null) { // return if we are the only node.
+        } else if (p.parent == null) { 
+            // 没有父节点说明其已经是根节点
             root = null;
-        } else { //  No children. Use self as phantom replacement and unlink.
+        } else {
+        	// 没有孩子的情况，此时可以直接删除节点(置空)
             if (p.color == BLACK)
                 fixAfterDeletion(p);
-
             if (p.parent != null) {
                 if (p == p.parent.left)
                     p.parent.left = null;
@@ -225,3 +267,5 @@ private void deleteEntry(Entry<K,V> p) {
         }
 }
 ```
+上述的代码分析更多详情可以参考**[红黑树的原理分析](http://)**。  
+
