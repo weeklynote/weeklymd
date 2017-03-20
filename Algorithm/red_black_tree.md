@@ -1,11 +1,11 @@
 ## 红黑二叉树
-以下关于红黑二叉树的介绍来自**[百度百科-红黑树](http://baike.baidu.com/link?url=b1exd5YCzZ4fjeNBysEtpJ81ssM6S7KJQO21egYHHZ-iYHyKbL92VRSuT2JxYmrDKuzy6LxwUoId7ITlRzRGuA-FywMgq-lSwbMOLcQCXkxIzqeBLq7fBQnMsFri_lwR)**、**[TreeMap源码](https://github.com/weeklynote/weeklymd/blob/master/java/tree_map.md)**整理。
+以下关于红黑二叉树的介绍来自** [百度百科-红黑树](http://baike.baidu.com/link?url=b1exd5YCzZ4fjeNBysEtpJ81ssM6S7KJQO21egYHHZ-iYHyKbL92VRSuT2JxYmrDKuzy6LxwUoId7ITlRzRGuA-FywMgq-lSwbMOLcQCXkxIzqeBLq7fBQnMsFri_lwR) **、** [TreeMap源码](https://github.com/weeklynote/weeklymd/blob/master/java/tree_map.md) **整理。
 #### 数据结构
 红黑树的统计性能要好于平衡二叉树(AVL-树)，因此，红黑树在很多地方都有应用。在C++ STL中，很多部分(包括set, multiset, map, multimap)应用了红黑树的变体(SGI STL中的红黑树有一些变化，这些修改提供了更好的性能，以及对set操作的支持)。其他平衡树还有：AVL，SBT，伸展树，TREAP 等等。
 #### 树的旋转
 当我们在对红黑树进行插入和删除等操作时，对树做了修改，那么可能会违背红黑树的性质。  
 为了保持红黑树的性质，我们可以通过对树进行旋转，即修改树中某些结点的颜色及指针结构，以达到对红黑树进行插入、删除结点等操作时，红黑树依然能保持它特有的性质  
-####性质
+#### 性质
 对于任何有效的红黑树有如下性质:
 1. 节点是红色或黑色。
 2. 根节点是黑色。
