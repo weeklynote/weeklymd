@@ -1,6 +1,6 @@
 ## 红黑二叉树
 以下关于红黑二叉树的介绍来自** [百度百科-红黑树](http://baike.baidu.com/link?url=b1exd5YCzZ4fjeNBysEtpJ81ssM6S7KJQO21egYHHZ-iYHyKbL92VRSuT2JxYmrDKuzy6LxwUoId7ITlRzRGuA-FywMgq-lSwbMOLcQCXkxIzqeBLq7fBQnMsFri_lwR) **。  
-以下的分析过程通过阅读**[TraaMap](https://github.com/weeklynote/weeklymd/blob/master/java/tree_map.md)**源码进行整理。
+以下的分析过程通过阅读** [TraaMap](https://github.com/weeklynote/weeklymd/blob/master/java/tree_map.md) **源码进行整理。
 #### 数据结构
 红黑树的统计性能要好于平衡二叉树(AVL-树)，因此，红黑树在很多地方都有应用。在C++ STL中，很多部分(包括set, multiset, map, multimap)应用了红黑树的变体(SGI STL中的红黑树有一些变化，这些修改提供了更好的性能，以及对set操作的支持)。其他平衡树还有：AVL，SBT，伸展树，TREAP 等等。
 #### 树的旋转
@@ -68,11 +68,11 @@
 - 当替换节点无孩子时，将替换节点的父节点的对应孩子置空。如果替换节点为黑色，此时删除会影响平衡，需要重新着色。
 - 当替换节点存在一个红色右节点时，只需要将替换节点的父节点的右孩子指向替换节点的红色右孩子节点。如果替换节点为黑色需要重新着色。
 
-当替换节点为第一个向右的祖先时，这个情况从**[TreeMap](https://github.com/weeklynote/weeklymd/blob/master/java/tree_map.md)**的源码中查看还不清楚在什么情况下会遇到这种情况。TODO
+当替换节点为第一个向右的祖先时，这个情况从** [TreeMap](https://github.com/weeklynote/weeklymd/blob/master/java/tree_map.md) **的源码中查看还不清楚在什么情况下会遇到这种情况。TODO  
 ###### 获取最大最小的元素  
 因为红黑树在插入过程中本身是有序的，所以在查找元素时，可以直接根据**root**来确定最大最小值的位置，根据二叉树的性质，左边为小值，右边为大值；那么可以得出结论：最左边为最小值；最右边为最大值。因此遍历**root**根节点的链表就可以拿到最大最小值。  
 ###### 遍历过程(Iterator)  
-从最小值(最左子树)开始遍历，如果左子树遍历完毕则需要查找第一个向右的父节点。然后继续查找父节点的左子树，如此反复，**可以参考普通二叉树的遍历来理解这个过程**。尤其需要注意在遍历完左边的最右节点时，需要查找到左边树中第一个向右的祖先节点，此时遍历的下一个值将指向根节点。然后开始遍历右子树，这个过程设计得相当巧妙。可以通过**[TreeMap](https://github.com/weeklynote/weeklymd/blob/master/java/tree_map.md)**来体验这种设计实现过程。  
+从最小值(最左子树)开始遍历，如果左子树遍历完毕则需要查找第一个向右的父节点。然后继续查找父节点的左子树，如此反复，**可以参考普通二叉树的遍历来理解这个过程**。尤其需要注意在遍历完左边的最右节点时，需要查找到左边树中第一个向右的祖先节点，此时遍历的下一个值将指向根节点。然后开始遍历右子树，这个过程设计得相当巧妙。可以通过** [TreeMap](https://github.com/weeklynote/weeklymd/blob/master/java/tree_map.md) **来体验这种设计实现过程。  
 
 
 
