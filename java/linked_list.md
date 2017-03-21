@@ -170,7 +170,8 @@ public boolean remove(Object o) {
         }
     }
     return false;
-}```
+}
+```
 如果待删除对象为空，那么将第一个为空的元素从链表移除；否则就查找与数组中相等的元素进行链表移除。
 ## 获取值
 ```gradle
