@@ -8,7 +8,6 @@
 	- #[TreeSet](https://github.com/weeklynote/weeklymd/blob/master/java/tree_set.md)
 	- #[TreeMap](https://github.com/weeklynote/weeklymd/blob/master/java/tree_map.md)
 	- #[ArrayList](https://github.com/weeklynote/weeklymd/blob/master/java/array_list.md)
-	- #[LinkedList](http://)
-	- #[ArrayList](http://)
+	- #[LinkedList](https://github.com/weeklynote/weeklymd/blob/master/java/linked_list.md)
 	- #[Vector](http://)
 - ##[String、StringBuffer与StringBuilder](https://github.com/weeklynote/weeklymd/blob/master/java/string.md)
