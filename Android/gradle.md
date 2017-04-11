@@ -276,7 +276,27 @@ productFlavors {
         }
 }
 ```
-productFlavors有自己的ProductFlavors类，就像defaultConfig，这意味着你的所有productFlavors都分享一样的属性。
+productFlavors有自己的ProductFlavors类，就像defaultConfig，这意味着你的所有productFlavors都分享一样的属性。productFlavors可以有自己的文件夹，比如blue flavors对应的文件夹叫做blueRelease。
+### 多个flavors变体
+有时候可能需要创建多个productFlavors的合并版本，例如client A与client B都想要一个free和paid的版本，而它们又是基于一样的代码，但是不同的颜色。常规思维是创建四个flavors，但是这意味着重复。合并flavors最简单的做法是使用flavor dimensions
+```gradle
+flavorDimensions "color", "price"
+       productFlavors {
+           red {
+               flavorDimension "color"
+           }
+           blue {
+               flavorDimension "color"
+           }
+           free {
+               flavorDimension "price"
+           }
+           paid {
+               flavorDimension "price"
+           }
+       }
+```
+当添加了flavor dimensions，需要为每个flavor添加flavorDimension，否则会提示错误。flavorDimensions定义了不同的dimensions，其顺序也很重要。  
 
 
 
