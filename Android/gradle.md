@@ -297,6 +297,303 @@ flavorDimensions "color", "price"
        }
 ```
 当添加了flavor dimensions，需要为每个flavor添加flavorDimension，否则会提示错误。flavorDimensions定义了不同的dimensions，其顺序也很重要。  
+### Groovy入门
+大多数Android开发者都是Java开发者，Groovy源于Java，并且也在jvm上运行。其目标是创建更简单直接的脚本和编译语言，以下内容将Groovy语法与Java语法做对比。如果要体验Groovy语法，可以在Android Studio中选择tools/Groovy Console，在该环境下书写Groovy代码并执行。  
+在Java中，输出一个字符串  
+```gradle
+System.out.println("Hello, world!");
+```
+在Groovy中，输出一个字符串  
+```gradle
+println 'Hello, world!'
+```
+可以看到它们的区别  
+- 没有System.out
+- 没有参数外的圆括号
+- 代码结束没有分号
+
+上述的例子中字符串使用的单引号，你也可以使用双引号，但是两者有一点区别。双引号可以使用插值表达式，插值是计算包含placeholder的字符串过程，placeholder会被替换为表达式的值。placeholder表达式可以是变量、甚至是方法，placeholder表达式包含方法或多个变量需要使用大括号{}和前缀$。placeholder表达式只包含一个变量的只需要使用前缀$即可。  
+```gradle
+def name = 'Andy'
+def greeting = "Hello, $name!"
+def name_size "Your name is ${name.size()} characters long."
+```
+```gradle
+"Hello, Andy"
+```
+```gradle
+"Your name is 4 characters long.".
+```
+这种写法类似于javascript的值替换，可以动态的实现一些字符串操作，甚至可以使用下面的方式来动态调用方法。  
+```gradle
+def method = "toString"
+println new Date()."$method"()
+```
+定义类和成员变量  
+```gradle
+class GroovyClass{
+    String greeting
+    String getGreeting(){
+        return greeting
+    }
+}
+def obj = new GroovyClass();
+obj.setGreeting("Hello world!")
+println obj.getGreeting()
+```
+```gradle
+Hello world!
+```
+可以看到类和成员变量都没有权限修饰符，默认情况下类是public的，成员变量是private的。使用关键字def创建变量，创建变量之后你可以操作其成员变量。getter和setter会被自动添加，因此上述代码我们未定义setGreeting方法依然可以访问。如果你直接访问成员变量，其实你是访问的getter方法。  
+```gradle
+println obj.getGreeting()
+println obj.greeting
+两者是等价的
+```
+定义方法没有必要定义返回类型，在Groovy中方法的最后一行默认总是作为返回值，即使并没有使用return关键字。
+在Java中定义方法  
+```gradle
+public int square(int num) {
+	return num * num;
+}
+square(2);
+```
+在Groovy中定义相同的方法  
+```gradle
+def square(def num) {
+	num * num
+}
+square 4
+```
+在Groovy中并没有显示定义返回类型以及参数类型。def关键字被用来替换类型，不管怎样，还是建议使用return关键字显示声明返回。同时还需要注意到，调用方法时不需要圆括号和分号结尾标志。  
+还可以使用闭包的方式定义方法。  
+```gradle
+def square = {num -> num * num}
+square 8
+```
+闭包是匿名的代码块，可以接收参数和返回类型。闭包可以被赋值给变量或作为方法的参数。如果你没有给闭包指定参数，Groovy会自动为其加一个参数，并且它的名字始终叫做it。这样就可以在闭包中使用it，如果调用者没有传递任何参数，it就为null。这种情况下可以使代码更简洁，但是仅仅是在只有一个参数的情况下适用。到此，结合build.gradle文件，可以发现android和dependencies方法快都可以看做闭包。  
+集合：lists和maps。
+定义List  
+```gradle
+List list = [1, 2, 3, 4, 5]
+```
+遍历List  
+```gradle
+list.each(){
+    element -> println element
+}
+```
+可以使用it简化上述代码  
+```gradle
+list.each() {
+	println it
+}
+```
+定义Map  
+```gradle
+Map pizzaPrices = [margherita:10, pepperoni:12]
+```
+访问特定项  
+```gradle
+Map pizzaPrices = [margherita:10, pepperoni:12]
+println pizzaPrices.margherita
+println pizzaPrices.get('pepperoni')
+println pizzaPrices['pepperoni']
+```
+```gradle
+10
+12
+12
+```
+### Groovy in Gradle
+通过上面的学习，下面我们阅读build.gradle文件就会更容易了。  
+```gradle
+apply plugin: 'com.android.application'
+```
+它的更复杂书写方式为  
+```gradle
+project.apply([plugin: 'com.android.application'])
+```
+即调用Project类的apply()方法，apply()方法接受一个Map类型的参数。
+```gradle
+dependencies {
+	compile 'com.google.code.gson:gson:2.3'
+}
+```
+即调用Project类的dependencies()方法，这个闭包被传递给DependencyHandler，DependencyHandler包含一个add()方法。add()方法接收三个参数：一个String定义配置；一个对象对象依赖符号；一个闭包包含依赖的一些额外属性。  
+```gradle
+project.dependencies({
+	add('compile', 'com.google.code.gson:gson:2.3', {
+		// Configuration statements
+})
+})
+```
+### 重新认识task
+Gradle编译生命周期包括：初始化、配置、执行。新手定义task的常见误区  
+```gradle
+task hello {
+	println 'Configuration!'
+}
+```
+按照上述定义task，命令行执行gradlew hello时也会看到打印，这很容易让人觉得task已被执行，但是实际上仅仅是在设置task的配置。  
+```gradle
+task hello << {
+	println 'Execution!'
+}
+```
+在闭包前面加<<，这样告诉Gradle代码在执行阶段处理，而不是配置阶段。  
+因为Groovy存在很多简写方式，所以定义task方式也有多种。  
+```gradle
+task(hello) << {
+	println 'Hello, world!'
+}
+task('hello') << {
+	println 'Hello, world!'
+}
+tasks.create(name: 'hello') << {
+	println 'Hello, world!'
+}
+```
+前两种是类似写法，你可以使用圆括号或者不使用，你也没有必要在参数两边使用单引号。task()方法属于Project类，需要传入两个参数：一个字符串代表task名；一个闭包。最后一个方法定义task使用了对象tasks，这个tasks是一个TaskContainer对象，可以在Project对象中直接使用。tasks提供了一个create()方法需要传入Map和闭包作为参数，并且返回一个Task。初学阶段不建议这么书写，建议书写非简化方式便于理解。  
+### Task剖析
+Task接口是所有Task的基础，其定义了一个属性集合和方法。被DefaultTask实现。这是实现Task的标准写法，如果你需要创建一个新的Task，最好是基于DefaultTask。  
+严格意义上说，DefaultTask并不是实现了所有的Task接口方法。Gradle有自己的内部AbstractTask，它实现了所有的task接口方法。但是AbstractTask是内部的，我们不能复写。因此我们专注于DefaultTask，它源于AbstractTask并且可以被复写。  
+每个Task包含一个Action集合。当一个Task执行时，所有的Action都会按照顺序执行。要添加Action至Task，你可以使用doFirst()和doLast()方法。这两个方法需要传入一个闭包作为参数，然后将闭包封装到Action。  
+可以使用doFirst()或doLast()来添加代码到Task，添加的代码将在执行阶段执行。<<符号是doFirst()的简写方式。  
+```gradle
+task hello{
+        println 'Configuration'
+        doLast{
+            println 'goodbye'
+        }
+        doFirst{
+            println 'Hello'
+        }
+}
+```
+```gradle
+Configuration                                                                  
+:app:hello                                                                     
+Hello                     
+goodbye 
+```
+注意：从打印可以看到Task的执行在：app：hello后，配置阶段的打印在执行前就被打印。**我们可以多次使用doFirst()和doLast()方法多次。**  
+```gradle
+task hello{
+        println 'Configuration'
+        doLast{
+            println 'goodbye1'
+        }
+        doLast{
+            println 'goodbye2'
+        }
+        doFirst{
+            println 'Hello1'
+        }
+        doFirst{
+            println 'Hello2'
+        }
+    }
+```
+```gradle
+Configuration                                                                  
+:app:hello                                                                     
+Hello2                    
+Hello1                    
+goodbye1                  
+goodbye2 
+```
+因此，我们知道doFirst()总是将Action添加到Task的开始，doLast()总是将Action添加到末尾。这种特性需要在方法的执行有顺序要求时特别注意。  
+但需要对Task排序时，你可以使用mustRunAfter()方法。  
+```gradle
+task task1 << {
+	println 'task1'
+}
+task task2 << {
+	println 'task2'
+}
+task2.mustRunAfter task1
+```
+这将导致task1总是比task2先执行。  
+```gradle
+:app:task1                                                                     
+task1                     
+:app:task2                 
+task2  
+```
+mustRunAfter()方法并不会将两个Task相互依赖；还是可以单独执行task2而不执行task1。如果要让两个task产生依赖，可以使用dependsOn()方法。  
+```gradle
+task task3 << {
+    println 'task3'
+}
+task task4 << {
+    println 'task4'
+}
+task4.dependsOn task3
+```
+```gradle
+gradlew task4
+:app:task3                                                                     
+task3                     
+:app:task4                 
+task4 
+```
+[自定义Task获取签名文件密码](http://)
+### Hook Android Plugin
+在Android开发中，我们左右可能想关联的Task就是Android插件。Hook Android插件可以增强Task的功能。一种Hook的方式就是操作(Build Variant)，这种方式是最直接的，可以使用下面的代码来遍历App里面的(Build Variants)的值。  
+```gradle
+android.applicationVariants.all { variant ->
+	// Do something
+}
+```
+你可以使用applicationVariants来获取(Build Variants)，如果是Android Library你可以使用libraryVariants来获取(Build Variants)。  
+请注意上述的遍历是使用的all()而不是each()方法。这是很有必要的，因为each()会在求值阶段触发，此时(Build Variants)还没有被Android插件创建。all()方法会在新的variant加入时触发。  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
